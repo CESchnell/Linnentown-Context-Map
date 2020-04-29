@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        #map {
+            width: 844px;
+            height: 785px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Parcels_1.js"></script>
+        <script src="data/Streets_2.js"></script>
+        <script src="data/SurroundingBuildings_3.js"></script>
+        <script src="data/LinnentownBuildings_4.js"></script>
+        <script src="data/Creek_5.js"></script>
+        <script src="data/FenceBetweenLinnentownandNearbyWhiteResidents_6.js"></script>
+        <script src="data/GatheringPlaces_7.js"></script>
+        <script src="data/BackyardGardens_8.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[33.94697766280681,-83.38424012347686],[33.95137966476066,-83.37950642533492]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_AthensBaseMap1955_0');
+        map.getPane('pane_AthensBaseMap1955_0').style.zIndex = 400;
+        var layer_AthensBaseMap1955_0 = L.tileLayer('https://api.mapbox.com/styles/v1/carolineschnell/ck7cqk2h508t81iqwnpn8f5es/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiY2Fyb2xpbmVzY2huZWxsIiwiYSI6ImNrNmNrY3NqYTE1aWIzbW44bng4bXhucWgifQ.tFOpV6FCgkCD1VEVWbAlOw', {
+            pane: 'pane_AthensBaseMap1955_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_AthensBaseMap1955_0;
+        map.addLayer(layer_AthensBaseMap1955_0);
+        function pop_Parcels_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><b> Parcel Number and Section: </b>' + (feature.properties['parcel_id'] !== null ? autolinker.link(feature.properties['parcel_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Parcels_1_0() {
+            return {
+                pane: 'pane_Parcels_1',
+                opacity: 1,
+                color: 'rgba(253,251,251,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(116,100,236,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Parcels_1');
+        map.getPane('pane_Parcels_1').style.zIndex = 401;
+        map.getPane('pane_Parcels_1').style['mix-blend-mode'] = 'normal';
+        var layer_Parcels_1 = new L.geoJson(json_Parcels_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Parcels_1',
+            layerName: 'layer_Parcels_1',
+            pane: 'pane_Parcels_1',
+            onEachFeature: pop_Parcels_1,
+            style: style_Parcels_1_0,
+        });
+        bounds_group.addLayer(layer_Parcels_1);
+        map.addLayer(layer_Parcels_1);
+        function pop_Streets_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><b> Street Name: </b>' + (feature.properties['Street Name'] !== null ? autolinker.link(feature.properties['Street Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Streets_2_0() {
+            return {
+                pane: 'pane_Streets_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style_Streets_2_1() {
+            return {
+                pane: 'pane_Streets_2',
+                opacity: 1,
+                color: 'rgba(152,150,149,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Streets_2');
+        map.getPane('pane_Streets_2').style.zIndex = 402;
+        map.getPane('pane_Streets_2').style['mix-blend-mode'] = 'normal';
+        var layer_Streets_2 = new L.geoJson.multiStyle(json_Streets_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Streets_2',
+            layerName: 'layer_Streets_2',
+            pane: 'pane_Streets_2',
+            onEachFeature: pop_Streets_2,
+            styles: [style_Streets_2_0,style_Streets_2_1,]
+        });
+        bounds_group.addLayer(layer_Streets_2);
+        map.addLayer(layer_Streets_2);
+        function pop_SurroundingBuildings_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_num'] !== null ? autolinker.link(feature.properties['parcel_num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_sec'] !== null ? autolinker.link(feature.properties['parcel_sec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_id'] !== null ? autolinker.link(feature.properties['parcel_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bldg_num'] !== null ? autolinker.link(feature.properties['bldg_num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['owner'] !== null ? autolinker.link(feature.properties['owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['race'] !== null ? autolinker.link(feature.properties['race'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(feature.properties['status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_acquired'] !== null ? autolinker.link(feature.properties['date_acquired'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_moved'] !== null ? autolinker.link(feature.properties['date_moved'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parc_date'] !== null ? autolinker.link(feature.properties['parc_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['residents'] !== null ? autolinker.link(feature.properties['residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bldg_count'] !== null ? autolinker.link(feature.properties['bldg_count'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_acq1'] !== null ? autolinker.link(feature.properties['date_acq1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_move1'] !== null ? autolinker.link(feature.properties['date_move1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parc_date1'] !== null ? autolinker.link(feature.properties['parc_date1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_owner'] !== null ? autolinker.link(feature.properties['parcel_owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['resident_names'] !== null ? autolinker.link(feature.properties['resident_names'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tenant_name'] !== null ? autolinker.link(feature.properties['tenant_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SurroundingBuildings_3_0() {
+            return {
+                pane: 'pane_SurroundingBuildings_3',
+                stroke: false, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,251,251,0.75)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_SurroundingBuildings_3');
+        map.getPane('pane_SurroundingBuildings_3').style.zIndex = 403;
+        map.getPane('pane_SurroundingBuildings_3').style['mix-blend-mode'] = 'normal';
+        var layer_SurroundingBuildings_3 = new L.geoJson(json_SurroundingBuildings_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_SurroundingBuildings_3',
+            layerName: 'layer_SurroundingBuildings_3',
+            pane: 'pane_SurroundingBuildings_3',
+            onEachFeature: pop_SurroundingBuildings_3,
+            style: style_SurroundingBuildings_3_0,
+        });
+        bounds_group.addLayer(layer_SurroundingBuildings_3);
+        map.addLayer(layer_SurroundingBuildings_3);
+        function pop_LinnentownBuildings_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_num'] !== null ? autolinker.link(feature.properties['parcel_num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_sec'] !== null ? autolinker.link(feature.properties['parcel_sec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_id'] !== null ? autolinker.link(feature.properties['parcel_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bldg_num'] !== null ? autolinker.link(feature.properties['bldg_num'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['owner'] !== null ? autolinker.link(feature.properties['owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['race'] !== null ? autolinker.link(feature.properties['race'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['status'] !== null ? autolinker.link(feature.properties['status'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_acquired'] !== null ? autolinker.link(feature.properties['date_acquired'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['date_moved'] !== null ? autolinker.link(feature.properties['date_moved'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parc_date'] !== null ? autolinker.link(feature.properties['parc_date'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['residents'] !== null ? autolinker.link(feature.properties['residents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['bldg_count'] !== null ? autolinker.link(feature.properties['bldg_count'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Address'] !== null ? autolinker.link(feature.properties['Address'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['parcel_owner'] !== null ? autolinker.link(feature.properties['parcel_owner'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['resident_names'] !== null ? autolinker.link(feature.properties['resident_names'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['tenant_name'] !== null ? autolinker.link(feature.properties['tenant_name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['sq_ft'] !== null ? autolinker.link(feature.properties['sq_ft'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['add_id'] !== null ? autolinker.link(feature.properties['add_id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LinnentownBuildings_4_0() {
+            return {
+                pane: 'pane_LinnentownBuildings_4',
+                opacity: 1,
+                color: 'rgba(11,36,34,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_LinnentownBuildings_4');
+        map.getPane('pane_LinnentownBuildings_4').style.zIndex = 404;
+        map.getPane('pane_LinnentownBuildings_4').style['mix-blend-mode'] = 'normal';
+        var layer_LinnentownBuildings_4 = new L.geoJson(json_LinnentownBuildings_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_LinnentownBuildings_4',
+            layerName: 'layer_LinnentownBuildings_4',
+            pane: 'pane_LinnentownBuildings_4',
+            onEachFeature: pop_LinnentownBuildings_4,
+            style: style_LinnentownBuildings_4_0,
+        });
+        bounds_group.addLayer(layer_LinnentownBuildings_4);
+        map.addLayer(layer_LinnentownBuildings_4);
+        function pop_Creek_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Creek_5_0() {
+            return {
+                pane: 'pane_Creek_5',
+                opacity: 1,
+                color: 'rgba(118,199,252,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_Creek_5');
+        map.getPane('pane_Creek_5').style.zIndex = 405;
+        map.getPane('pane_Creek_5').style['mix-blend-mode'] = 'normal';
+        var layer_Creek_5 = new L.geoJson(json_Creek_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_Creek_5',
+            layerName: 'layer_Creek_5',
+            pane: 'pane_Creek_5',
+            onEachFeature: pop_Creek_5,
+            style: style_Creek_5_0,
+        });
+        bounds_group.addLayer(layer_Creek_5);
+        map.addLayer(layer_Creek_5);
+        function pop_FenceBetweenLinnentownandNearbyWhiteResidents_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_FenceBetweenLinnentownandNearbyWhiteResidents_6_0() {
+            return {
+                pane: 'pane_FenceBetweenLinnentownandNearbyWhiteResidents_6',
+                opacity: 1,
+                color: 'rgba(98,65,11,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_FenceBetweenLinnentownandNearbyWhiteResidents_6');
+        map.getPane('pane_FenceBetweenLinnentownandNearbyWhiteResidents_6').style.zIndex = 406;
+        map.getPane('pane_FenceBetweenLinnentownandNearbyWhiteResidents_6').style['mix-blend-mode'] = 'normal';
+        var layer_FenceBetweenLinnentownandNearbyWhiteResidents_6 = new L.geoJson(json_FenceBetweenLinnentownandNearbyWhiteResidents_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_FenceBetweenLinnentownandNearbyWhiteResidents_6',
+            layerName: 'layer_FenceBetweenLinnentownandNearbyWhiteResidents_6',
+            pane: 'pane_FenceBetweenLinnentownandNearbyWhiteResidents_6',
+            onEachFeature: pop_FenceBetweenLinnentownandNearbyWhiteResidents_6,
+            style: style_FenceBetweenLinnentownandNearbyWhiteResidents_6_0,
+        });
+        bounds_group.addLayer(layer_FenceBetweenLinnentownandNearbyWhiteResidents_6);
+        map.addLayer(layer_FenceBetweenLinnentownandNearbyWhiteResidents_6);
+        function pop_GatheringPlaces_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><b> Non-white Gathering Spaces: </b>' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GatheringPlaces_7_0() {
+            return {
+                pane: 'pane_GatheringPlaces_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,238,139,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_GatheringPlaces_7');
+        map.getPane('pane_GatheringPlaces_7').style.zIndex = 407;
+        map.getPane('pane_GatheringPlaces_7').style['mix-blend-mode'] = 'normal';
+        var layer_GatheringPlaces_7 = new L.geoJson(json_GatheringPlaces_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GatheringPlaces_7',
+            layerName: 'layer_GatheringPlaces_7',
+            pane: 'pane_GatheringPlaces_7',
+            onEachFeature: pop_GatheringPlaces_7,
+            style: style_GatheringPlaces_7_0,
+        });
+        bounds_group.addLayer(layer_GatheringPlaces_7);
+        map.addLayer(layer_GatheringPlaces_7);
+        function pop_BackyardGardens_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><b> Garden Contents: </b>' + (feature.properties['Garden Contents'] !== null ? autolinker.link(feature.properties['Garden Contents'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_BackyardGardens_8_0() {
+            return {
+                pane: 'pane_BackyardGardens_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,210,128,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_BackyardGardens_8');
+        map.getPane('pane_BackyardGardens_8').style.zIndex = 408;
+        map.getPane('pane_BackyardGardens_8').style['mix-blend-mode'] = 'normal';
+        var layer_BackyardGardens_8 = new L.geoJson(json_BackyardGardens_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_BackyardGardens_8',
+            layerName: 'layer_BackyardGardens_8',
+            pane: 'pane_BackyardGardens_8',
+            onEachFeature: pop_BackyardGardens_8,
+            style: style_BackyardGardens_8_0,
+        });
+        bounds_group.addLayer(layer_BackyardGardens_8);
+        map.addLayer(layer_BackyardGardens_8);
+        setBounds();
+        </script>
+    </body>
+</html>
